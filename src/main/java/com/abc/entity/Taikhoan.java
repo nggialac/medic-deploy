@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Taikhoan {
@@ -49,10 +50,13 @@ public class Taikhoan {
 		this.username = username;
 	}
 
+//	@JsonProperty(access = Access.WRITE_ONLY)
+//	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
 
+//	@JsonProperty
 	public void setPassword(String password) {
 		this.password = password;
 	}

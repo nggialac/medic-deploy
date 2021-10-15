@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "medical-ecom-72c30",
+  "private_key_id": "78deb3bf6bb466d5ee6f1aaf8cf5a4ac7b07d851",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDNI2dVw8wOZ6tR\noXg8a3aWQGkghBS62YpxgkZkVJ2akkugAy9X1fBTK+B8xFSWXbcErF7QeWOK7+1v\nvWu9go/IssIXDxVxUi5pDIGbEXqjwnUWJzZrPkirsp+LY1qhlKvzW+9O+2samH0J\nRLrFI4+ShTL1K4b/kr4vOz1wgpcg1Ie4qRpbFc8uUVp37haa1a3fl3As4VkJiXBF\ng/aiLwq5Vz7tD7Kz7Oh08cPINZThEGjaSdQJ+9w+fcHLpPnhopf0BV6Kjpaxq1Gh\nZUMtPXga14IFh1qYQEVmGgxzZa4AoMI8EikktR1y8H8YH6fElBh1b8C8+xQlY9DR\nrQx6ZeKTAgMBAAECggEAB2pk4FQDr73Gpo37Uf6YWs/lf3Kvfezp0C0F72ii4qec\n1KIY12EPXwfdceP2QIg2WsXutiD3tVoHGZBAIrN3I9rsly1/TCIR0zKQu3e/e2VQ\nwlJyVZasADu4dq8jMlOXQ9r7hNs3oNhOG0k+fh2roWwg3VZB06R+LShhpbOZmOrk\nGa71Awwuu0s3tLUR73yYBGWE/0LJP/zCi5GVfBHexqOIzH+eq/YP12MTiRpDKPi6\nLh82p7lP6gtCSnGoYBBFHbuWz42sB9Ujbo2CyKL5L5wWCP0z1xkx/y7m5ts4cJA/\nk0Xk7CMv/EFNM6kxacPJKEox+ptx+Nz5lFDxn4SqZQKBgQDuag8mdfCkgM3Tg21V\ncKAhLJKIMHvtKmomrKdX1po3mI/ueDyOlRiQLWVBi8ZLjCHKkq3HE7ahI1NFgZah\nblov1snQsKUdbYmvWsdcUYvttyXyc5eLcsNAgcsxleH3ziVEAGuphk4f1KbbksGB\n/F6fjuXf1WSO8LrRmAi9WawQjwKBgQDcRP+1gyhoSADwp9b8QwrkOxeshi8pu1Zs\nGB1DB51PuJ+kq8F2skxUmT2eY/0mUAT1DsIOjE2XJAQo4FPe6oQ/L2W2Zhn6aA8L\nXrLvw+jm09o+zkk1IeTJCX+7u8iFPdVAu9JuhpJ3Xyr4xytaSjrmcQz0xWeE8713\nsbHuTNpHvQKBgQCY0qE9fRIw0GOfNjqqLtRmD2UqKTH2115NxhRKiMQ36PIx4R6o\nIsgo+wBR4J/OI1gxuo3r8yX46mThQ+zjM5JZ4etheymL0IAWSDFMavUv/lszq4az\nm2+u9MPj1/iN2LUofsCEXRPM8Ym3a73gbX3V90pAjU+1FHgcC8FmZomV3wKBgGrj\nxN8VfbdVMbeXCzmxYwisMGnVV++9bEvaS+DqQgmcw0PK4YAzN91Z29AQH5nG/RDa\nj4s1xLVSkf4wFiM31ONAofAojfS5KIvQ8a5ueIgDSIZv3pC9GOQCCw1ULBOUlPbr\n7ksaXNs2wIinRj9zhC+trqbdYMXg7hG2lmzYuJhVAoGAUIyIhqt8/TwO8slqLHvg\nXkmEQLaFOzhx+7fOl9rT//+5hw/rb0Hyd7LV6WxdGveWjYUGSppME2bNY4pNopyd\nKh2WcymyLpKyFnKLodenayqDYUmXlN7q766dgsKyuK9bhD9oWLidGMr4ltDivfrG\nVYwCbGi4yoFjphpWlWELO6o=\n-----END PRIVATE KEY-----\n",
+  "client_email": "medical-ecom-72c30@appspot.gserviceaccount.com",
+  "client_id": "112410025804788580920",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/medical-ecom-72c30%40appspot.gserviceaccount.com"
+}

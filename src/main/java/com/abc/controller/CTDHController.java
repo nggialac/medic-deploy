@@ -28,9 +28,14 @@ public class CTDHController {
 	@Autowired
 	DonhangRepositoty dhRepo;
 
-	@GetMapping("/ctdh/{madh}")
+	@GetMapping("/ctdh")
 	public List<CTDH> getListCTDH(){
 		return repo.findAll();
+	}
+
+	@GetMapping("/ctdh/{madh}")
+	public CTDH getCTDHByMadh(@PathVariable("madh") String madh){
+		return repo.getCTDHByMadh(madh);
 	}
 
 	

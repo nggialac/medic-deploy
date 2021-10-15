@@ -10,10 +10,10 @@ import com.abc.entity.CTDH_ID;
 public interface CTDHRepository extends JpaRepository<CTDH, CTDH_ID>{
 	
 	@Query(nativeQuery = true, value = "select * from ctdh where madh =?1")
-	List<CTDH> getCTDHByMadh(String madh);
+	CTDH getCTDHByMadh(String madh);
 
-	@Query(nativeQuery = true, value = "select * from ctdh where madh =?1")
-	List<CTDH> postCTDHByMadh(String madh);
+//	@Query(nativeQuery = true, value = "select * from ctdh where madh =?1")
+//	List<CTDH> postCTDHByMadh(String madh);
 	
 	@Query(nativeQuery = true, value = "delete from ctdh where madh=?1")
 	List<CTDH> deleteCTDHByDonhang(String madh);

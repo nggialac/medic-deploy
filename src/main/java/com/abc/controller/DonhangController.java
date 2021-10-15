@@ -14,6 +14,7 @@ import com.abc.entity.*;
 import com.abc.model.DoanhThuHangThang;
 import com.abc.model.DoanhThuTheoNgay;
 import com.abc.model.DoanhThuTrangThai;
+import com.abc.repository.*;
 import org.apache.naming.java.javaURLContextFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -24,11 +25,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.abc.dao.DAO;
 import com.abc.model.Dathang;
-
-import com.abc.repository.CTDHRepository;
-import com.abc.repository.DonhangRepositoty;
-import com.abc.repository.GiohangRepository;
-import com.abc.repository.SanphamRepository;
 
 @RestController
 @CrossOrigin
@@ -41,6 +37,9 @@ public class DonhangController {
 	
 	@Autowired
 	GiohangRepository ghRepo;
+
+	@Autowired
+	NhanvienRepository nvRepo;
 	
 //	@GetMapping("/doanhthu")
 //	public ArrayList<DoanhThuHangThang> getDoanhThu() {
@@ -242,14 +241,41 @@ public ArrayList<DoanhThuHangThang> getDoanhThu(@PathVariable("nam") int nam) {
 		}
 		return new ResponseEntity<String>("Failed !!!",HttpStatus.BAD_REQUEST);
 	}
-	@PutMapping("/donhang/{madh}")
-	public ResponseEntity<Boolean> huyDonhang(@PathVariable("madh") String madh) {
 
+	@PutMapping("/donhang/ctt/{madh}")
+	public ResponseEntity<Boolean> chuyenDonhang(@PathVariable("madh") String madh, @RequestParam(name = "manv",required = false) String manv) {
 		Optional<Donhang> dh = repo.findById(madh);
+		if(dh.get().getTrangthai() < 3) {
+			try {
+				dh.get().setTrangthai(dh.get().getTrangthai()+1);
 
+				if(manv!="" || manv!=null) {
+					Optional<Nhanvien> listNV = nvRepo.findById(manv);
+					dh.get().setNhanvien(listNV.get());
+				}
+
+				repo.save(dh.get());
+				return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+
+		return new ResponseEntity<Boolean>(false,HttpStatus.BAD_REQUEST);
+	}
+
+	@PutMapping("/donhang/{madh}")
+	public ResponseEntity<Boolean> huyDonhang(@PathVariable("madh") String madh, @RequestParam(name = "manv",required = false) String manv) {
+		Optional<Donhang> dh = repo.findById(madh);
 		if(true) {
 			try {
 				dh.get().setTrangthai(4);
+
+				if(manv!="" || manv!=null) {
+					Optional<Nhanvien> listNV = nvRepo.findById(manv);
+					dh.get().setNhanvien(listNV.get());
+				}
+
 				repo.save(dh.get());
 				return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 			} catch (Exception e) {
@@ -267,7 +293,7 @@ public ArrayList<DoanhThuHangThang> getDoanhThu(@PathVariable("nam") int nam) {
 			List<Donhang> listDH = repo.findAll();
 			for(Donhang dh : listDH) {
 				if (dh.getMadh().equalsIgnoreCase(donhang.getMadh())) {
-//					dh.setNhanvien(donhang.getNhanvien());
+					dh.setNhanvien(donhang.getNhanvien());
 					repo.save(donhang);
 					return new ResponseEntity<String>("Successed !!!",HttpStatus.OK);
 				}

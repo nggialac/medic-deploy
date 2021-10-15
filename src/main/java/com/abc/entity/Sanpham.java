@@ -37,6 +37,10 @@ public class Sanpham {
 	@JsonIgnore
 	@OneToMany(mappedBy = "sanpham")
 	List<CTDH> listCTDH;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "sanpham")
+	List<CTPN> listCTPN;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy ="sanpham")
@@ -169,5 +173,12 @@ public class Sanpham {
 	public Sanpham() {
 		super();
 	}
-	
+
+	public List<CTPN> getListCTPN() {
+		return listCTPN;
+	}
+
+	public void setListCTPN(List<CTPN> listCTPN) {
+		this.listCTPN = listCTPN;
+	}
 }

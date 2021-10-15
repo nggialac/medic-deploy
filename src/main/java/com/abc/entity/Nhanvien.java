@@ -26,7 +26,11 @@ public class Nhanvien {
 	@JsonIgnore
 	@OneToMany(mappedBy = "nhanvien")
 	List<Donhang> listDH;
-	
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "nhanvien")
+	List<Phieunhap> listPN;
+
 	@ManyToOne
 	@JoinColumn(name = "matk")
 	Taikhoan taikhoan;
@@ -115,6 +119,12 @@ public class Nhanvien {
 	public void setTaikhoan(Taikhoan taikhoan) {
 		this.taikhoan = taikhoan;
 	}
-	
-	
+
+	public List<Phieunhap> getListPN() {
+		return listPN;
+	}
+
+	public void setListPN(List<Phieunhap> listPN) {
+		this.listPN = listPN;
+	}
 }
