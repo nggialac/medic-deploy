@@ -40,7 +40,7 @@ public class PhieunhapController {
 
     @GetMapping("/phieunhap/{mapn}")
     public List<Phieunhap> getPhieunhapByManv(@PathVariable("mapn") String mapn){
-        List<Phieunhap> list = repo.getPhieunhapByManv(mapn);
+        List<Phieunhap> list = repo.getPhieunhapByMapn(mapn);
         java.util.Collections.sort(list,new Comparator<Phieunhap>() {
 
             @Override
@@ -106,7 +106,7 @@ public class PhieunhapController {
                 return new ResponseEntity<String>("Không thể thêm phiếu nhập!", HttpStatus.BAD_REQUEST);
             }
 
-            return new ResponseEntity<String>("Succeeded !!!",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("Succeeded !!!",HttpStatus.OK);
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();

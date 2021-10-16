@@ -18,6 +18,8 @@ public interface IFileService {
 
     String save(BufferedImage bufferedImage, String originalFileName) throws IOException;
 
+    String save(byte[] bytes, String originalFileName) throws IOException;
+
     void delete(String name) throws IOException;
 
     default String getExtension(String originalFileName) {

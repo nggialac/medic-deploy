@@ -84,6 +84,20 @@ public class FileService implements IFileService {
     }
 
     @Override
+    public String save(byte[] bytes, String originalFileName) throws IOException {
+
+        Bucket bucket = StorageClient.getInstance().bucket();
+
+        String name = generateFileName(originalFileName);
+
+        bucket.create(name, bytes);
+
+//        Long token = bucket.getdo();
+
+        return name;
+    }
+
+    @Override
     public void delete(String name) throws IOException {
 
         Bucket bucket = StorageClient.getInstance().bucket();
