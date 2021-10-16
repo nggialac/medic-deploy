@@ -86,11 +86,13 @@ public class FileService implements IFileService {
     @Override
     public String save(byte[] bytes, String originalFileName) throws IOException {
 
+//        byte[] lac = getByteArrays(bytes, getExtension(originalFileName));
+
         Bucket bucket = StorageClient.getInstance().bucket();
 
         String name = generateFileName(originalFileName);
 
-        bucket.create(name, bytes);
+        bucket.create(name, bytes, "image/jpeg");
 
 //        Long token = bucket.getdo();
 

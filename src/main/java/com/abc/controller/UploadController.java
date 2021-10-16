@@ -37,9 +37,6 @@ public class UploadController {
 
 //                downloadUrl = "https://firebasestorage.googleapis.com/v0/b/medical-ecom-72c30.appspot.com/o/imageUrl?alt=media"
 
-                // do whatever you want with that
-//                return new ResponseEntity<String>(imageUrl, HttpStatus.OK);
-
             } catch (Exception e) {
                 //  throw internal error;
                 return new ResponseEntity<String>("Failed to upload file!", HttpStatus.BAD_REQUEST);
