@@ -58,7 +58,7 @@ public class DAO {
 			st = con.prepareStatement(
 					"SELECT FORMAT(DONHANG.NGAYDAT, 'yyyy-MM-dd'),SUM(TONGTIEN) " +
 					"FROM DONHANG WHERE (DONHANG.TRANGTHAI = '3') " +
-					"AND DONHANG.NGAYDAT between ? and ?  GROUP BY (DONHANG.NGAYDAT)");
+					"AND DONHANG.NGAYDAT between CONVERT(datetime, ?) and CONVERT(datetime, ? +' 23:59:59:998') GROUP BY (DONHANG.NGAYDAT)");
 			st.setString(1, from);
 			st.setString(2, to);
 			ResultSet rs = st.executeQuery();

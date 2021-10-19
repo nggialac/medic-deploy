@@ -11,13 +11,13 @@ import java.util.Properties;
 
 
 @Service
-public class MailService  {
+public class    MailService  {
 
     public boolean sendEmail(String subject, String message, String to) {
         boolean foo = false; // Set the false, default variable "foo", we will allow it after sending code process email
 
         String senderEmail = "lacnguyenspringmvc1@gmail.com"; // your gmail email id
-        String senderPassword = "Llacnguyenspringmvc"; // your gmail id password
+        String senderPassword = "Llacnguyenspringmvc123"; // your gmail id password
 
         // Properties class enables us to connect to the host SMTP server
         Properties properties = new Properties();
@@ -33,7 +33,6 @@ public class MailService  {
         // get the session object and pass username and password
         Session session = Session.getDefaultInstance(properties, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-
                 return new PasswordAuthentication(senderEmail, senderPassword);
             }
         });
