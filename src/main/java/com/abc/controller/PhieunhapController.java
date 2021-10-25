@@ -48,9 +48,9 @@ public class PhieunhapController {
         return new DAO().getPhiNhapTheoNgay(from, to);
     }
 
-    @GetMapping("/topsp/{top}")
-    public ArrayList<TopSanPham> getTopSP(@PathVariable("top") int top) {
-        return new DAO().getTop(top);
+    @GetMapping("/topsp/import/{top}")
+    public ArrayList<TopSanPham> getTopNhap(@PathVariable("top") int top) {
+        return new DAO().getTopNhap(top);
     }
 
     @GetMapping("/phieunhap")

@@ -49,7 +49,7 @@ public class DAO {
 		ArrayList<DoanhThuHangThang> list = new ArrayList<DoanhThuHangThang>();
 		try {
 			PreparedStatement st;
-			st = con.prepareStatement("SELECT MONTH(DONHANG.NGAYDAT),SUM(TONGTIEN) FROM DONHANG WHERE (DONHANG.TRANGTHAI = '3') AND (YEAR(DONHANG.NGAYDAT) = ?)  GROUP BY MONTH(DONHANG.NGAYDAT)");
+			st = con.prepareStatement("SELECT MONTH(PHIEUNHAP.NGAYLAP),SUM(TONGTIEN) FROM PHIEUNHAP WHERE (PHIEUNHAP.TRANGTHAI = '1') AND (YEAR(PHIEUNHAP.NGAYLAP) = ?)  GROUP BY MONTH(PHIEUNHAP.NGAYLAP)");
 //			Statement st = con.createStatement();
 //			"SELECT MONTH(DONHANG.NGAYDAT),SUM(TONGTIEN) FROM DONHANG WHERE (DONHANG.TRANGTHAI = '3') AND (YEAR(DONHANG.NGAYDAT) = YEAR(GETDATE()))  GROUP BY MONTH(DONHANG.NGAYDAT)"
 			st.setInt(1, nam);
@@ -143,6 +143,28 @@ public class DAO {
 		}
 		return list;
 	}
+
+    public ArrayList<TopSanPham> getTopNhap(int top) {
+        ArrayList<TopSanPham> list = new ArrayList<TopSanPham>();
+        try {
+//			Statement st = con.createStatement();
+            PreparedStatement st;
+            st = con.prepareStatement("SELECT TOP(?) CTPN.MASP, S.TENSP, SUM(CTPN.SOLUONG) FROM CTPN INNER JOIN SANPHAM S on S.MASP = CTPN.MASP GROUP BY CTPN.MASP, S.TENSP ORDER BY SUM(CTPN.SOLUONG) DESC\n");
+            st.setInt(1, top);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                TopSanPham ds = new TopSanPham();
+                ds.setMasp(rs.getString(1));
+                ds.setTensp(rs.getString(2));
+                ds.setSoluong(rs.getInt(3));
+                list.add(ds);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return list;
+    }
 
 	public ArrayList<DoanhThuTrangThai> getDoanhThuTrangThaiNam(int nam) {
 		ArrayList<DoanhThuTrangThai> list = new ArrayList<DoanhThuTrangThai>();

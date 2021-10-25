@@ -11,9 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.abc.entity.*;
-import com.abc.model.DoanhThuHangThang;
-import com.abc.model.DoanhThuTheoNgay;
-import com.abc.model.DoanhThuTrangThai;
+import com.abc.model.*;
 import com.abc.repository.*;
 import org.apache.naming.java.javaURLContextFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +22,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.abc.dao.DAO;
-import com.abc.model.Dathang;
 
 @RestController
 @CrossOrigin
@@ -54,6 +51,11 @@ public ArrayList<DoanhThuHangThang> getDoanhThu(@PathVariable("nam") int nam) {
 	public ArrayList<DoanhThuTrangThai> getDoanhThuTrangThai(@PathVariable("nam") int nam) {
 		return new DAO().getDoanhThuTrangThaiNam(nam);
 	}
+
+    @GetMapping("/topsp/{top}")
+    public ArrayList<TopSanPham> getTopSP(@PathVariable("top") int top) {
+        return new DAO().getTop(top);
+    }
 
 	@GetMapping("/doanhthu/trangthai/{from}/{to}")
 	public ArrayList<DoanhThuTrangThai> getDoanhThuTrangThaiByDate(@PathVariable("from") String from, @PathVariable("to") String to) {
