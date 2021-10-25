@@ -1,7 +1,11 @@
 package com.abc.controller;
 
+import com.abc.dao.DAO;
 import com.abc.entity.*;
 import com.abc.model.Dathang;
+import com.abc.model.DoanhThuHangThang;
+import com.abc.model.DoanhThuTheoNgay;
+import com.abc.model.TopSanPham;
 import com.abc.repository.CTPNRepository;
 import com.abc.repository.NhanvienRepository;
 import com.abc.repository.PhieunhapRepository;
@@ -13,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +37,21 @@ public class PhieunhapController {
 
     @Autowired
     NhanvienRepository nvRepo;
+
+    @GetMapping("/phinhap/{nam}")
+    public ArrayList<DoanhThuHangThang> getPhiNhap(@PathVariable("nam") int nam) {
+        return new DAO().getPhiNhapHangThang(nam);
+    }
+
+    @GetMapping("/phinhap/{from}/{to}")
+    public ArrayList<DoanhThuTheoNgay> getPhiNhapTheoNgay(@PathVariable("from") String from, @PathVariable("to") String to) {
+        return new DAO().getPhiNhapTheoNgay(from, to);
+    }
+
+    @GetMapping("/topsp/{top}")
+    public ArrayList<TopSanPham> getTopSP(@PathVariable("top") int top) {
+        return new DAO().getTop(top);
+    }
 
     @GetMapping("/phieunhap")
     public List<Phieunhap> getListPN(){
