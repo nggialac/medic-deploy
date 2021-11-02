@@ -14,6 +14,7 @@ public class CTDH {
 	@EmbeddedId
 	CTDH_ID id;
 	int soluong;
+	float giaban;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -40,6 +41,14 @@ public class CTDH {
 
 	public void setSoluong(int soluong) {
 		this.soluong = soluong;
+	}
+
+	public float getGiaban() {
+		return giaban;
+	}
+
+	public void setGiaban(float giaban) {
+		this.giaban = giaban;
 	}
 
 	public Donhang getDonhang() {

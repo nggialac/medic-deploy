@@ -42,20 +42,58 @@ public class DonhangController {
 //	public ArrayList<DoanhThuHangThang> getDoanhThu() {
 //		return new DAO().getDoanhThuHangThang();
 //	}
-@GetMapping("/doanhthu/{nam}")
-public ArrayList<DoanhThuHangThang> getDoanhThu(@PathVariable("nam") int nam) {
-	return new DAO().getDoanhThuHangThang(nam);
-}
+
+    @GetMapping("/topsp/{top}")
+    public ArrayList<TopSanPham> getTopSP(@PathVariable("top") int top) {
+        return new DAO().getTopSanPham(top);
+    }
+
+	@GetMapping("/topsp/{top}/{from}/{to}")
+	public ArrayList<TopSanPham> getTopSP_Date(@PathVariable("top") int top, @PathVariable("from") String from, @PathVariable("to") String to) {
+		return new DAO().getTopSanPham_Date(top, from, to);
+	}
+
+	@GetMapping("/topspdt/{top}")
+	public ArrayList<TopSanPhamDoanhThu> getTopSPDT(@PathVariable("top") int top) {
+		return new DAO().getTopSanPhamDoanhthu(top);
+	}
+
+	@GetMapping("/topspdt/{top}/{from}/{to}")
+	public ArrayList<TopSanPhamDoanhThu> getTopSPDT_Date(@PathVariable("top") int top, @PathVariable("from") String from, @PathVariable("to") String to) {
+		return new DAO().getTopSanPhamDoanhThu_Date(top, from, to);
+	}
+
+	@GetMapping("/topsp/nhap/{top}")
+	public ArrayList<TopSanPham> getTopSPNhap(@PathVariable("top") int top) {
+		return new DAO().getTopNhap(top);
+	}
+
+	@GetMapping("/topsp/nhap/{top}/{from}/{to}")
+	public ArrayList<TopSanPham> getTopSPNhap_Date(@PathVariable("top") int top, @PathVariable("from") String from, @PathVariable("to") String to) {
+		return new DAO().getTopNhap_Date(top, from, to);
+	}
+
+	@GetMapping("/topspdt/nhap/{top}")
+	public ArrayList<TopSanPhamDoanhThu> getTopSPDTNhap(@PathVariable("top") int top) {
+		return new DAO().getTopSanPhamPhiNhap(top);
+	}
+
+	@GetMapping("/topspdt/nhap/{top}/{from}/{to}")
+	public ArrayList<TopSanPhamDoanhThu> getTopSPDTNhap_Date(@PathVariable("top") int top, @PathVariable("from") String from, @PathVariable("to") String to) {
+		return new DAO().getTopSanPhamPhiNhap_Date(top, from, to);
+	}
+
+	//
+
+	@GetMapping("/doanhthu/{nam}")
+	public ArrayList<DoanhThuHangThang> getDoanhThu(@PathVariable("nam") int nam) {
+		return new DAO().getDoanhThuHangThang(nam);
+	}
 
 	@GetMapping("/doanhthu/trangthai/{nam}")
 	public ArrayList<DoanhThuTrangThai> getDoanhThuTrangThai(@PathVariable("nam") int nam) {
 		return new DAO().getDoanhThuTrangThaiNam(nam);
 	}
-
-    @GetMapping("/topsp/{top}")
-    public ArrayList<TopSanPham> getTopSP(@PathVariable("top") int top) {
-        return new DAO().getTop(top);
-    }
 
 	@GetMapping("/doanhthu/trangthai/{from}/{to}")
 	public ArrayList<DoanhThuTrangThai> getDoanhThuTrangThaiByDate(@PathVariable("from") String from, @PathVariable("to") String to) {
@@ -139,6 +177,7 @@ public ArrayList<DoanhThuHangThang> getDoanhThu(@PathVariable("nam") int nam) {
 					sanpham.setMasp(dh.getMasp());
 					ctdh.setSanpham(sanpham);
 					ctdh.setSoluong(dh.getSoluong());
+					ctdh.setGiaban(dh.getDongia());
 					ctRepo.save(ctdh);
 				}
 			} catch (Exception e) {

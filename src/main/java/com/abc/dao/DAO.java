@@ -122,7 +122,7 @@ public class DAO {
 		return list;
 	}
 
-	public ArrayList<TopSanPham> getTop(int top) {
+	public ArrayList<TopSanPham> getTopSanPham(int top) {
 		ArrayList<TopSanPham> list = new ArrayList<TopSanPham>();
 		try {
 //			Statement st = con.createStatement();
@@ -135,6 +135,84 @@ public class DAO {
 				ds.setMasp(rs.getString(1));
 				ds.setTensp(rs.getString(2));
 				ds.setSoluong(rs.getInt(3));
+				list.add(ds);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public ArrayList<TopSanPham> getTopSanPham_Date(int top, String from, String to) {
+		ArrayList<TopSanPham> list = new ArrayList<TopSanPham>();
+		try {
+//			Statement st = con.createStatement();
+			PreparedStatement st;
+			st = con.prepareStatement("SELECT TOP(?) CTDH.MASP, S.TENSP, SUM(CTDH.SOLUONG) " +
+					"FROM CTDH INNER JOIN SANPHAM S on S.MASP = CTDH.MASP " +
+					"INNER JOIN DONHANG D on D.MADH = CTDH.MADH " +
+					"where D.NGAYDAT between CONVERT(datetime, ?) AND CONVERT(datetime, ? +' 23:59:59:998') " +
+					"GROUP BY CTDH.MASP, S.TENSP ORDER BY SUM(CTDH.SOLUONG) DESC");
+			st.setInt(1, top);
+			st.setString(2, from);
+			st.setString(3, to);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				TopSanPham ds = new TopSanPham();
+				ds.setMasp(rs.getString(1));
+				ds.setTensp(rs.getString(2));
+				ds.setSoluong(rs.getInt(3));
+				list.add(ds);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public ArrayList<TopSanPhamDoanhThu> getTopSanPhamDoanhthu(int top) {
+		ArrayList<TopSanPhamDoanhThu> list = new ArrayList<TopSanPhamDoanhThu>();
+		try {
+//			Statement st = con.createStatement();
+			PreparedStatement st;
+			st = con.prepareStatement("SELECT TOP(?) CTDH.MASP, S.TENSP, SUM(CTDH.GIABAN) FROM CTDH INNER JOIN SANPHAM S on S.MASP = CTDH.MASP GROUP BY CTDH.MASP, S.TENSP ORDER BY SUM(CTDH.GIABAN) DESC\n");
+			st.setInt(1, top);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				TopSanPhamDoanhThu ds = new TopSanPhamDoanhThu();
+				ds.setMasp(rs.getString(1));
+				ds.setTensp(rs.getString(2));
+				ds.setDoanhthu(rs.getInt(3));
+				list.add(ds);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public ArrayList<TopSanPhamDoanhThu> getTopSanPhamDoanhThu_Date(int top, String from, String to) {
+		ArrayList<TopSanPhamDoanhThu> list = new ArrayList<TopSanPhamDoanhThu>();
+		try {
+//			Statement st = con.createStatement();
+			PreparedStatement st;
+			st = con.prepareStatement("SELECT TOP(?) CTDH.MASP, S.TENSP, SUM(CTDH.GIABAN*CTDH.SOLUONG) " +
+					"FROM CTDH INNER JOIN SANPHAM S on S.MASP = CTDH.MASP " +
+					"INNER JOIN DONHANG D on D.MADH = CTDH.MADH " +
+					"where D.NGAYDAT between CONVERT(datetime, ?) AND CONVERT(datetime, ? +' 23:59:59:998') " +
+					"GROUP BY CTDH.MASP, S.TENSP ORDER BY SUM(CTDH.GIABAN*CTDH.SOLUONG) DESC");
+			st.setInt(1, top);
+			st.setString(2, from);
+			st.setString(3, to);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				TopSanPhamDoanhThu ds = new TopSanPhamDoanhThu();
+				ds.setMasp(rs.getString(1));
+				ds.setTensp(rs.getString(2));
+				ds.setDoanhthu(rs.getInt(3));
 				list.add(ds);
 			}
 		} catch (Exception e) {
@@ -165,6 +243,87 @@ public class DAO {
         }
         return list;
     }
+
+	public ArrayList<TopSanPham> getTopNhap_Date(int top, String from, String to) {
+		ArrayList<TopSanPham> list = new ArrayList<TopSanPham>();
+		try {
+//			Statement st = con.createStatement();
+			PreparedStatement st;
+			st = con.prepareStatement("SELECT TOP(?) CTPN.MASP, S.TENSP, SUM(CTPN.SOLUONG) FROM CTPN " +
+					"INNER JOIN SANPHAM S on S.MASP = CTPN.MASP " +
+					"INNER JOIN PHIEUNHAP N on N.MAPN = CTPN.MAPN " +
+					"where N.NGAYLAP between CONVERT(datetime, ?) AND CONVERT(datetime, ? +' 23:59:59:998') " +
+					"GROUP BY CTPN.MASP, S.TENSP ORDER BY SUM(CTPN.SOLUONG) DESC\n");
+			st.setInt(1, top);
+			st.setString(2, from);
+			st.setString(3, to);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				TopSanPham ds = new TopSanPham();
+				ds.setMasp(rs.getString(1));
+				ds.setTensp(rs.getString(2));
+				ds.setSoluong(rs.getInt(3));
+				list.add(ds);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public ArrayList<TopSanPhamDoanhThu> getTopSanPhamPhiNhap(int top) {
+		ArrayList<TopSanPhamDoanhThu> list = new ArrayList<TopSanPhamDoanhThu>();
+		try {
+//			Statement st = con.createStatement();
+			PreparedStatement st;
+			st = con.prepareStatement("SELECT TOP(?) CTPN.MASP, S.TENSP, SUM(CTPN.DONGIA) FROM CTPN " +
+					"INNER JOIN SANPHAM S on S.MASP = CTPN.MASP " +
+					"GROUP BY CTPN.MASP, S.TENSP ORDER BY SUM(CTPN.DONGIA) DESC\n");
+			st.setInt(1, top);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				TopSanPhamDoanhThu ds = new TopSanPhamDoanhThu();
+				ds.setMasp(rs.getString(1));
+				ds.setTensp(rs.getString(2));
+				ds.setDoanhthu(rs.getInt(3));
+				list.add(ds);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public ArrayList<TopSanPhamDoanhThu> getTopSanPhamPhiNhap_Date(int top, String from, String to) {
+		ArrayList<TopSanPhamDoanhThu> list = new ArrayList<TopSanPhamDoanhThu>();
+		try {
+//			Statement st = con.createStatement();
+			PreparedStatement st;
+			st = con.prepareStatement("SELECT TOP(?) CTPN.MASP, S.TENSP, SUM(CTPN.DONGIA*CTPN.SOLUONG) " +
+					"FROM CTPN INNER JOIN SANPHAM S on S.MASP = CTPN.MASP " +
+					"INNER JOIN PHIEUNHAP D on D.MAPN = CTPN.MAPN " +
+					"where D.NGAYLAP between CONVERT(datetime, ?) AND CONVERT(datetime, ? +' 23:59:59:998') " +
+					"GROUP BY CTPN.MASP, S.TENSP ORDER BY SUM(CTPN.DONGIA*CTPN.SOLUONG) DESC");
+			st.setInt(1, top);
+			st.setString(2, from);
+			st.setString(3, to);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				TopSanPhamDoanhThu ds = new TopSanPhamDoanhThu();
+				ds.setMasp(rs.getString(1));
+				ds.setTensp(rs.getString(2));
+				ds.setDoanhthu(rs.getInt(3));
+				list.add(ds);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return list;
+	}
+	//////////
 
 	public ArrayList<DoanhThuTrangThai> getDoanhThuTrangThaiNam(int nam) {
 		ArrayList<DoanhThuTrangThai> list = new ArrayList<DoanhThuTrangThai>();
