@@ -156,7 +156,7 @@ public class DonhangController {
 			//donhang.setNgaydat(tm);
 			donhang.setHinhthucthanhtoan(hinhthucthanhtoan);
 			donhang.setTrangthai(0);
-			if(!paymentCreated.isEmpty()) donhang.setPaymentcreated(paymentCreated);
+			if(donhang.getHinhthucthanhtoan() == 2) donhang.setPaymentcreated(paymentCreated);
 			else donhang.setPaymentcreated(null);
 
 			Nhathuoc nhathuoc = new Nhathuoc();
@@ -193,6 +193,7 @@ public class DonhangController {
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
+//				return new ResponseEntity<String>("Don hang chua duoc them vao gio",HttpStatus.BAD_REQUEST);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
