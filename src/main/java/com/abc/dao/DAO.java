@@ -127,7 +127,9 @@ public class DAO {
 		try {
 //			Statement st = con.createStatement();
 			PreparedStatement st;
-			st = con.prepareStatement("SELECT TOP(?) CTDH.MASP, S.TENSP, SUM(CTDH.SOLUONG) FROM CTDH INNER JOIN SANPHAM S on S.MASP = CTDH.MASP GROUP BY CTDH.MASP, S.TENSP ORDER BY SUM(CTDH.SOLUONG) DESC\n");
+			st = con.prepareStatement("SELECT TOP(?) CTDH.MASP, S.TENSP, SUM(CTDH.SOLUONG) " +
+					"FROM CTDH INNER JOIN SANPHAM S on S.MASP = CTDH.MASP INNER JOIN DONHANG D on CTDH.MADH = D.MADH " +
+					"where D.TRANGTHAI = '3' GROUP BY CTDH.MASP, S.TENSP ORDER BY SUM(CTDH.SOLUONG) DESC\n");
 			st.setInt(1, top);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
@@ -152,7 +154,7 @@ public class DAO {
 			st = con.prepareStatement("SELECT TOP(?) CTDH.MASP, S.TENSP, SUM(CTDH.SOLUONG) " +
 					"FROM CTDH INNER JOIN SANPHAM S on S.MASP = CTDH.MASP " +
 					"INNER JOIN DONHANG D on D.MADH = CTDH.MADH " +
-					"where D.NGAYDAT between CONVERT(datetime, ?) AND CONVERT(datetime, ? +' 23:59:59:998') " +
+					"where D.TRANGTHAI == '3' AND D.NGAYDAT between CONVERT(datetime, ?) AND CONVERT(datetime, ? +' 23:59:59:998')" +
 					"GROUP BY CTDH.MASP, S.TENSP ORDER BY SUM(CTDH.SOLUONG) DESC");
 			st.setInt(1, top);
 			st.setString(2, from);
@@ -177,7 +179,9 @@ public class DAO {
 		try {
 //			Statement st = con.createStatement();
 			PreparedStatement st;
-			st = con.prepareStatement("SELECT TOP(?) CTDH.MASP, S.TENSP, SUM(CTDH.GIABAN) FROM CTDH INNER JOIN SANPHAM S on S.MASP = CTDH.MASP GROUP BY CTDH.MASP, S.TENSP ORDER BY SUM(CTDH.GIABAN) DESC\n");
+			st = con.prepareStatement("SELECT TOP(?) CTDH.MASP, S.TENSP, SUM(CTDH.GIABAN*CTDH.SOLUONG) " +
+					"FROM CTDH INNER JOIN SANPHAM S on S.MASP = CTDH.MASP INNER JOIN DONHANG D on D.MADH = CTDH.MADH" +
+					" WHERE D.TRANGTHAI = '3' GROUP BY CTDH.MASP, S.TENSP ORDER BY SUM(CTDH.GIABAN*CTDH.SOLUONG) DESC\n");
 			st.setInt(1, top);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
@@ -202,7 +206,7 @@ public class DAO {
 			st = con.prepareStatement("SELECT TOP(?) CTDH.MASP, S.TENSP, SUM(CTDH.GIABAN*CTDH.SOLUONG) " +
 					"FROM CTDH INNER JOIN SANPHAM S on S.MASP = CTDH.MASP " +
 					"INNER JOIN DONHANG D on D.MADH = CTDH.MADH " +
-					"where D.NGAYDAT between CONVERT(datetime, ?) AND CONVERT(datetime, ? +' 23:59:59:998') " +
+					"where D.TRANGTHAI = '3' and D.NGAYDAT between CONVERT(datetime, ?) AND CONVERT(datetime, ? +' 23:59:59:998') " +
 					"GROUP BY CTDH.MASP, S.TENSP ORDER BY SUM(CTDH.GIABAN*CTDH.SOLUONG) DESC");
 			st.setInt(1, top);
 			st.setString(2, from);
@@ -227,7 +231,9 @@ public class DAO {
         try {
 //			Statement st = con.createStatement();
             PreparedStatement st;
-            st = con.prepareStatement("SELECT TOP(?) CTPN.MASP, S.TENSP, SUM(CTPN.SOLUONG) FROM CTPN INNER JOIN SANPHAM S on S.MASP = CTPN.MASP GROUP BY CTPN.MASP, S.TENSP ORDER BY SUM(CTPN.SOLUONG) DESC\n");
+            st = con.prepareStatement("SELECT TOP(?) CTPN.MASP, S.TENSP, SUM(CTPN.SOLUONG) " +
+					"FROM CTPN INNER JOIN SANPHAM S on S.MASP = CTPN.MASP INNER JOIN PHIEUNHAP P on P.MAPN = CTPN.MAPN " +
+					"where P.TRANGTHAI = '1' GROUP BY CTPN.MASP, S.TENSP ORDER BY SUM(CTPN.SOLUONG) DESC\n");
             st.setInt(1, top);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -252,7 +258,7 @@ public class DAO {
 			st = con.prepareStatement("SELECT TOP(?) CTPN.MASP, S.TENSP, SUM(CTPN.SOLUONG) FROM CTPN " +
 					"INNER JOIN SANPHAM S on S.MASP = CTPN.MASP " +
 					"INNER JOIN PHIEUNHAP N on N.MAPN = CTPN.MAPN " +
-					"where N.NGAYLAP between CONVERT(datetime, ?) AND CONVERT(datetime, ? +' 23:59:59:998') " +
+					"where N.TRANGTHAI = '1' and N.NGAYLAP between CONVERT(datetime, ?) AND CONVERT(datetime, ? +' 23:59:59:998') " +
 					"GROUP BY CTPN.MASP, S.TENSP ORDER BY SUM(CTPN.SOLUONG) DESC\n");
 			st.setInt(1, top);
 			st.setString(2, from);
@@ -278,8 +284,8 @@ public class DAO {
 //			Statement st = con.createStatement();
 			PreparedStatement st;
 			st = con.prepareStatement("SELECT TOP(?) CTPN.MASP, S.TENSP, SUM(CTPN.DONGIA) FROM CTPN " +
-					"INNER JOIN SANPHAM S on S.MASP = CTPN.MASP " +
-					"GROUP BY CTPN.MASP, S.TENSP ORDER BY SUM(CTPN.DONGIA) DESC\n");
+					"INNER JOIN SANPHAM S on S.MASP = CTPN.MASP INNER JOIN PHIEUNHAP N on N.MAPN = CTPN.MAPN " +
+					"WHERE N.TRANGTHAI = '1' GROUP BY CTPN.MASP, S.TENSP ORDER BY SUM(CTPN.DONGIA) DESC\n");
 			st.setInt(1, top);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
@@ -304,7 +310,7 @@ public class DAO {
 			st = con.prepareStatement("SELECT TOP(?) CTPN.MASP, S.TENSP, SUM(CTPN.DONGIA*CTPN.SOLUONG) " +
 					"FROM CTPN INNER JOIN SANPHAM S on S.MASP = CTPN.MASP " +
 					"INNER JOIN PHIEUNHAP D on D.MAPN = CTPN.MAPN " +
-					"where D.NGAYLAP between CONVERT(datetime, ?) AND CONVERT(datetime, ? +' 23:59:59:998') " +
+					"where D.TRANGTHAI= '1' and D.NGAYLAP between CONVERT(datetime, ?) AND CONVERT(datetime, ? +' 23:59:59:998') " +
 					"GROUP BY CTPN.MASP, S.TENSP ORDER BY SUM(CTPN.DONGIA*CTPN.SOLUONG) DESC");
 			st.setInt(1, top);
 			st.setString(2, from);
