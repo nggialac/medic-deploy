@@ -198,7 +198,7 @@ public class PhieunhapController {
         Optional<Phieunhap> dh = repo.findById(mapn);
         if(dh.get().getTrangthai()==0) {
             try {
-                dh.get().setTrangthai(4);
+                dh.get().setTrangthai(2);
 
                 if(manv!="" || manv!=null) {
                     Optional<Nhanvien> listNV = nvRepo.findById(manv);

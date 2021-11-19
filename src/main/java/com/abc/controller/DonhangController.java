@@ -43,6 +43,11 @@ public class DonhangController {
 //		return new DAO().getDoanhThuHangThang();
 //	}
 
+	@GetMapping("/multi_statistic/{top}/{from}/{to}")
+	public ArrayList<ThongKeTongHop> getThongKeFinal(@PathVariable("top") int top, @PathVariable("from") String from, @PathVariable("to") String to){
+		return new DAO().getThongKeTongHop(top, from, to);
+	}
+
     @GetMapping("/topsp/{top}")
     public ArrayList<TopSanPham> getTopSP(@PathVariable("top") int top) {
         return new DAO().getTopSanPham(top);
