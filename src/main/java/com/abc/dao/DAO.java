@@ -396,19 +396,19 @@ public class DAO {
 		return list;
 	}
 
-	public ArrayList<ThongKeTongHop> getThongKeTongHop(int top, String from, String to) {
+	public ArrayList<ThongKeTongHop> getThongKeTongHop_BanRa(int top, String from, String to) {
 		ArrayList<ThongKeTongHop> list = new ArrayList<ThongKeTongHop>();
 		try {
 //			Statement st = con.createStatement();
 			PreparedStatement st;
-			st = con.prepareStatement("SELECT TOP(?) CTDH.MASP, S.TENSP, SUM(CTDH.SOLUONG), SUM(CTDH.GIABAN*CTDH.SOLUONG), SUM(C.SOLUONG*C.DONGIA), S.PHOTO\n" +
-					"FROM CTDH INNER JOIN SANPHAM S on S.MASP = CTDH.MASP\n" +
-					"          INNER JOIN DONHANG D on D.MADH = CTDH.MADH\n" +
-					"            INNER JOIN CTPN C ON C.MASP = S.MASP\n" +
-					"            INNER JOIN PHIEUNHAP P on P.MAPN = C.MAPN\n" +
-					"where D.TRANGTHAI = '3' AND P.TRANGTHAI = '1' AND D.NGAYDAT between CONVERT(datetime, ?)\n" +
+			st = con.prepareStatement("SELECT TOP(?) S.MASP, S.TENSP, SUM(CTDH.SOLUONG), SUM(CTDH.GIABAN*CTDH.SOLUONG) AS SOTIENBANRA , S.PHOTO\n" +
+					"FROM CTDH\n" +
+					"                INNER JOIN SANPHAM S on S.MASP = CTDH.MASP\n" +
+					"                INNER JOIN DONHANG D on D.MADH = CTDH.MADH\n" +
+					"where D.TRANGTHAI = '3'\n" +
+					"  AND D.NGAYDAT between CONVERT(datetime, ?)\n" +
 					"\t\t\t\t\tAND CONVERT(datetime, ? +' 23:59:59:998')\n" +
-					"GROUP BY CTDH.MASP, S.TENSP, S.PHOTO ORDER BY SUM(CTDH.SOLUONG) DESC");
+					"GROUP BY S.MASP, S.TENSP, S.PHOTO ORDER BY S.MASP");
 			st.setInt(1, top);
 			st.setString(2, from);
 			st.setString(3, to);
@@ -417,10 +417,45 @@ public class DAO {
 				ThongKeTongHop ds = new ThongKeTongHop();
 				ds.setMasp(rs.getString(1));
 				ds.setTensp(rs.getString(2));
-				ds.setSoLuongBan(rs.getInt(3));
-				ds.setSoTienBanRa(rs.getFloat(4));
-				ds.setSoTienNhapVao(rs.getFloat(5));
-				ds.setPhoto(rs.getString(6));
+				ds.setSoLuong(rs.getInt(3));
+				ds.setSoTien(rs.getFloat(4));
+//				ds.setSoTienNhapVao(rs.getFloat(5));
+				ds.setPhoto(rs.getString(5));
+				list.add(ds);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public ArrayList<ThongKeTongHop> getThongKeTongHop_NhapVao(int top, String from, String to) {
+		ArrayList<ThongKeTongHop> list = new ArrayList<ThongKeTongHop>();
+		try {
+//			Statement st = con.createStatement();
+			PreparedStatement st;
+			st = con.prepareStatement("SELECT TOP(?) CTPN.MASP, S.TENSP, SUM(CTPN.SOLUONG), SUM(CTPN.DONGIA*CTPN.SOLUONG) , S.PHOTO\n" +
+					"FROM CTPN\n" +
+					"         INNER JOIN SANPHAM S on S.MASP = CTPN.MASP\n" +
+					"                INNER JOIN PHIEUNHAP P on P.MAPN = CTPN.MAPN\n" +
+					"where\n" +
+					"  P.TRANGTHAI = '1'\n" +
+					"  AND P.NGAYLAP between CONVERT(datetime, ?)\n" +
+					"    AND CONVERT(datetime, ? +' 23:59:59:998')\n" +
+					"GROUP BY CTPN.MASP, S.TENSP, S.PHOTO ORDER BY CTPN.MASP");
+			st.setInt(1, top);
+			st.setString(2, from);
+			st.setString(3, to);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				ThongKeTongHop ds = new ThongKeTongHop();
+				ds.setMasp(rs.getString(1));
+				ds.setTensp(rs.getString(2));
+				ds.setSoLuong(rs.getInt(3));
+				ds.setSoTien(rs.getFloat(4));
+//				ds.setSoTienNhapVao(rs.getFloat(5));
+				ds.setPhoto(rs.getString(5));
 				list.add(ds);
 			}
 		} catch (Exception e) {

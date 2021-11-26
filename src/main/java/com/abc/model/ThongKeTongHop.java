@@ -3,9 +3,8 @@ package com.abc.model;
 public class ThongKeTongHop {
     String masp;
     String tensp;
-    int soLuongBan;
-    float soTienBanRa;
-    float soTienNhapVao;
+    int soLuong;
+    float soTien;
     String photo;
 
     public String getMasp() {
@@ -24,28 +23,20 @@ public class ThongKeTongHop {
         this.tensp = tensp;
     }
 
-    public int getSoLuongBan() {
-        return soLuongBan;
+    public int getSoLuong() {
+        return soLuong;
     }
 
-    public void setSoLuongBan(int soLuongBan) {
-        this.soLuongBan = soLuongBan;
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
     }
 
-    public float getSoTienBanRa() {
-        return soTienBanRa;
+    public float getSoTien() {
+        return soTien;
     }
 
-    public void setSoTienBanRa(float soTienBanRa) {
-        this.soTienBanRa = soTienBanRa;
-    }
-
-    public float getSoTienNhapVao() {
-        return soTienNhapVao;
-    }
-
-    public void setSoTienNhapVao(float soTienNhapVao) {
-        this.soTienNhapVao = soTienNhapVao;
+    public void setSoTien(float soTien) {
+        this.soTien = soTien;
     }
 
     public String getPhoto() {

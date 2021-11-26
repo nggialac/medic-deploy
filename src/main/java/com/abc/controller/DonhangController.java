@@ -43,9 +43,14 @@ public class DonhangController {
 //		return new DAO().getDoanhThuHangThang();
 //	}
 
-	@GetMapping("/multi_statistic/{top}/{from}/{to}")
-	public ArrayList<ThongKeTongHop> getThongKeFinal(@PathVariable("top") int top, @PathVariable("from") String from, @PathVariable("to") String to){
-		return new DAO().getThongKeTongHop(top, from, to);
+	@GetMapping("/multi_statistic/ban/{top}/{from}/{to}")
+	public ArrayList<ThongKeTongHop> getThongKeFinal_BanRa(@PathVariable("top") int top, @PathVariable("from") String from, @PathVariable("to") String to){
+		return new DAO().getThongKeTongHop_BanRa(top, from, to);
+	}
+
+	@GetMapping("/multi_statistic/nhap/{top}/{from}/{to}")
+	public ArrayList<ThongKeTongHop> getThongKeFinal_NhapVao(@PathVariable("top") int top, @PathVariable("from") String from, @PathVariable("to") String to){
+		return new DAO().getThongKeTongHop_NhapVao(top, from, to);
 	}
 
     @GetMapping("/topsp/{top}")
